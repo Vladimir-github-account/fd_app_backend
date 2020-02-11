@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "vladimir",
+    "password": "postgres",
+    "database": "fd_app_backend",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5432,
+    "migrationStorage": "json",
+    "seederStorage": "json"
+  },
+  "test": {
+  },
+  "production": {
+  }
+}

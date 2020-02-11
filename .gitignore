@@ -1,0 +1,4 @@
+/package-lock.json
+/sequelize-meta.json
+/sequelize-data.json
+**/node_modules
