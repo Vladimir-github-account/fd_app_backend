@@ -1,10 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define('Task', {
-    value: DataTypes.STRING,
-    deadline: DataTypes.DATE,
-    userId: DataTypes.INTEGER,
-    isDone: DataTypes.BOOLEAN,
+    value: {
+      type:DataTypes.STRING
+    },
+    deadline: {
+      type:DataTypes.DATE
+    },
+    userId: {
+      type: DataTypes.INTEGER
+    },
+    isDone: {
+      type: DataTypes.BOOLEAN
+    },
     files: DataTypes.ARRAY( DataTypes.STRING )
   }, {});
   Task.associate = function (models) {
