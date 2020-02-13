@@ -1,5 +1,5 @@
 const express = require('express');
-const TaskController = require('../controllers/task.controller.js');
+import TaskController from '../controllers/task.controller.js';
 
 const userRouter = express.Router();
 

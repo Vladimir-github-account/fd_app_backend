@@ -1,7 +1,7 @@
 const { Task } = require('../db/models');
 
 class TaskController {
-    getTaskByPk = async function (req, res, next) {
+    async getTaskByPk (req, res, next) {
         try {
             const { params: { taskId } } = req;
             const foundedTask = await Task.findByPk(taskId, {});
@@ -14,7 +14,7 @@ class TaskController {
         }
     };
 
-    createTask = async function (req, res, next) {
+    async createTask (req, res, next) {
         try {
             const createdTask = await Task.create(req.body);
             if (createdTask) {
@@ -26,7 +26,7 @@ class TaskController {
         }
     };
 
-    updateTask = async function (req, res, next) {
+    async updateTask (req, res, next) {
         try {
             const { body } = req;
             const { taskId } = req.params;
@@ -45,7 +45,7 @@ class TaskController {
         }
     };
 
-    deleteTask = async function(req, res, next) {
+    async deleteTask (req, res, next) {
         try {
             const { taskId } = req.params;
             const deletedRowCount = await Task.destroy({

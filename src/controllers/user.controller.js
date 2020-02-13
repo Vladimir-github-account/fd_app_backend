@@ -1,7 +1,7 @@
 const { User } = require('../db/models');
 
 class UserController {
-  getUserByPk = async function (req, res, next) {
+  async getUserByPk (req, res, next) {
     try {
       const { params: { userId } } = req;
       const foundedUser = await User.findByPk(userId, {
@@ -18,7 +18,7 @@ class UserController {
     }
   };
 
-  createUser = async function (req, res, next) {
+  async createUser (req, res, next) {
     try {
       const createdUser = await User.create(req.body);
       if (createdUser) {
@@ -32,7 +32,7 @@ class UserController {
     }
   };
 
-  updateUser = async function (req, res, next) {
+  async updateUser (req, res, next) {
     try {
       const { body } = req;
       const { userId } = req.params;
@@ -53,7 +53,7 @@ class UserController {
     }
   };
 
-  deleteUser = async function(req, res, next) {
+  async deleteUser (req, res, next) {
     try {
       const { userId } = req.params;
       const deletedRowCount = await User.destroy({
