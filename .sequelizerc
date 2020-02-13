@@ -1,3 +1,4 @@
+require('@babel/register');
 const path = require( 'path' );
 
 const commonPath = path.resolve('src', 'db');
