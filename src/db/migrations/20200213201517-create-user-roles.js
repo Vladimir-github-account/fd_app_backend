@@ -2,12 +2,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.createTable('UserRoles', {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
             userId: {
                 type: Sequelize.INTEGER,
                 references: {
@@ -28,7 +22,11 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             }
-        });
+        }).then( value => {
+            return queryInterface.addConstraint( 'UserRoles', ['userId', 'roleId'], {
+                type: 'primary key',
+            } );
+        } );
     },
     down: (queryInterface, Sequelize) => {
         return queryInterface.dropTable('UserRoles');
