@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING(64),
-            unique: true
+            unique: true,
+            isEmail: true,
         },
         profilePicture: {
             type: DataTypes.STRING(64),
@@ -38,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.Task, {
             foreignKey: 'userId'
         });
+        User.belongsToMany(models.Role,{
+            foreignKey: 'roleId',
+            through: 'UserRoles',
+        })
     };
     return User;
 };
