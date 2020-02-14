@@ -3,4 +3,5 @@
 /sequelize-data.json
 **/node_modules
 .*/
+.*
 !.gitignore

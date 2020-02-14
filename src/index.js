@@ -19,4 +19,5 @@ app.listen(PORT, () => {
   console.log(`My app listening on port ${PORT}`);
 });
 //fix creating task with a userId which does not exist
-//fix primary key for user_roles error
+//how to handle not unique values in user update, new query with all values?
+//fix delete user by id which not exist

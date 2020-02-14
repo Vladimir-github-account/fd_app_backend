@@ -1,18 +1,20 @@
-const { User } = require('../db/models');
+import { User } from '../db/models';
+import AppError from '../utils/application_errors';
 
 class UserController {
   async getUserByPk (req, res, next) {
     try {
       const { params: { userId } } = req;
-      const foundedUser = await User.findByPk(userId, {
+      const foundUser = await User.findByPk(+userId, {
         attributes: {
           exclude: ['password']
         }
       });
-      if (foundedUser) {
-        return res.status(200).send(foundedUser);
+      if (foundUser) {
+        return res.status(200).send(foundUser);
+      }else {
+        next(new AppError.NotFoundError('user'));
       }
-      next(new Error('user not found'));
     } catch (e) {
       next(e);
     }
@@ -26,7 +28,6 @@ class UserController {
         delete data.password;
         return res.status(201).send(data);
       }
-      next(new Error('Create user error'));
     } catch (e) {
       next(e);
     }
@@ -47,7 +48,6 @@ class UserController {
         delete data.password;
         return res.send(data);
       }
-      next(new Error('Update user error'));
     } catch (e) {
       next(e);
     }
@@ -63,13 +63,14 @@ class UserController {
       });
       if (deletedRowCount) {
         return res.send(`${deletedRowCount}`);
+      } else {
+        next(new AppError.BadRequestError());
       }
-      next(new Error('Delete user error'));
     } catch (e) {
       next(e);
     }
   }
 }
 
-module.exports = new UserController();
+export default new UserController();
 
