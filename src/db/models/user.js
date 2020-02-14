@@ -32,12 +32,16 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
     }, {
-        timestamps: true
+        timestamps:true
     });
     User.associate = function (models) {
         User.hasMany(models.Task, {
             foreignKey: 'userId'
         });
+        User.belongsToMany( models.Role, {
+            foreignKey: 'roleId',
+            through: 'UserRoles',
+        } );
     };
     return User;
 };
