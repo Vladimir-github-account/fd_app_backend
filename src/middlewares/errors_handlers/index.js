@@ -1,5 +1,6 @@
 import applicationErrorHandler from "./applicationErrorHandler";
-
+import validationErrorHandler from "./validationErrorHandler";
 export default {
-    applicationErrorHandler
+    applicationErrorHandler,
+    validationErrorHandler
 }

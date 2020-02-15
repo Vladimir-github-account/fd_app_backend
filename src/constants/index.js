@@ -1,3 +1,7 @@
+export const LOGIN_PATTERN = /(?!^\d)^\w{6,16}$/;
+export const PASSWORD_PATTERN = /(?=.*?\d)(?=.*?[a-z])(?=.*?[A-Z])^[a-zA-Z0-9_$%@?!#]{8,60}$/;
+export const USER_NAME_PATTERN = /^[A-Z][a-z]{0,63}$/;
+
 /**
  *
  * @typedef {Symbol} Action
@@ -7,24 +11,24 @@
  *
  * @enum {Action} Actions
  */
-export const ACTIONS = Object.freeze( {
+export const ACTIONS = Object.freeze({
     /**
      * @readonly
      */
-    CREATE:'CREATE' ,
+    CREATE: 'CREATE',
     /**
      * @readonly
      */
-    READ:'READ' ,
+    READ: 'READ',
     /**
      * @readonly
      */
-    UPDATE:  'UPDATE' ,
+    UPDATE: 'UPDATE',
     /**
      * @readonly
      */
-    DELETE: 'DELETE' ,
-} );
+    DELETE: 'DELETE',
+});
 
 /**
  *
@@ -35,11 +39,11 @@ export const ACTIONS = Object.freeze( {
  *
  * @enum {Role} Roles
  */
-export const ROLES = Object.freeze( {
+export const ROLES = Object.freeze({
     ADMIN: 'ADMIN',
     MODERATOR: 'MODERATOR',
     USER: 'USER',
-} );
+});
 
 /**
  * @typedef {Symbol} Entity
@@ -49,10 +53,10 @@ export const ROLES = Object.freeze( {
  *
  * @enum {Entity} Entities
  */
-export const ENTITIES = Object.freeze( {
+export const ENTITIES = Object.freeze({
     ...ROLES,
     TASK: 'TASK',
-} );
+});
 
 export const PERMISSIONS_TREE = Object.freeze({
     USER: {
@@ -95,7 +99,10 @@ export const PERMISSIONS_TREE = Object.freeze({
                 OWNER: true,
                 NOT_OWNER: false,
             },
-            USER: false,
+            USER: {
+                SELF: true,
+                OTHER: false,
+            },
         },
     },
     ADMIN: {
@@ -113,17 +120,17 @@ export const PERMISSIONS_TREE = Object.freeze({
                 NOT_OWNER: false,
             },
             USER: {
-                USER: {
-                    SELF: true,
-                    OTHER: {
+                SELF: true,
+                OTHER: {
+                    USER: {
                         FIRST_NAME: false,
                         LAST_NAME: false,
                         LOGIN: true,
                         PASSWORD: false,
                         EMAIL: false,
-                    }
+                    },
+                    ADMIN: false,
                 },
-                ADMIN: false,
             }
         },
         DELETE: {
@@ -132,8 +139,11 @@ export const PERMISSIONS_TREE = Object.freeze({
                 NOT_OWNER: false,
             },
             USER: {
-                USER: true,
-                ADMIN: false,
+                SELF: true,
+                OTHER: {
+                    USER: true,
+                    ADMIN: false,
+                },
             }
         }
     }

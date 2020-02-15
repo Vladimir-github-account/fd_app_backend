@@ -3,10 +3,20 @@ import UserController from '../controllers/user.controller.js';
 import checkPermission from "../middlewares/permissions/checkPermission.js";
 import {ACTIONS, ENTITIES} from '../constants';
 import checkSelf from "../middlewares/permissions/user/checkSelf";
+import checkValidation     from "../middlewares/validations/checkValidation";
+import validationSchemas   from './../utils/data_validations';
 
 const userRouter = express.Router();
 
 const checkPermissionUser = checkPermission(ENTITIES.USER);
+const checkUserValidation = checkValidation( validationSchemas.userSchema );
+
+userRouter.post('',
+    checkSelf,
+    checkPermissionUser(ACTIONS.CREATE),
+    checkUserValidation(ACTIONS.CREATE),
+    UserController.createUser
+);
 
 userRouter.get('/:userId',
     checkSelf,
@@ -14,21 +24,16 @@ userRouter.get('/:userId',
     UserController.getUserByPk
 );
 
-userRouter.post('',
-    checkSelf,
-    checkPermissionUser(ACTIONS.READ),
-    UserController.createUser
-);
-
 userRouter.patch('/:userId',
     checkSelf,
-    checkPermissionUser(ACTIONS.READ),
+    checkPermissionUser(ACTIONS.UPDATE),
+    checkUserValidation(ACTIONS.UPDATE),
     UserController.updateUser
 );
 
 userRouter.delete('/:userId',
     checkSelf,
-    checkPermissionUser(ACTIONS.READ),
+    checkPermissionUser(ACTIONS.DELETE),
     UserController.deleteUser
 );
 
