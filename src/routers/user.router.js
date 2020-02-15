@@ -1,23 +1,35 @@
-const express = require('express');
-const UserController = require('../controllers/user.controller.js');
+import express from 'express';
+import UserController from '../controllers/user.controller.js';
+import checkPermission from "../middlewares/permissions/checkPermission.js";
+import {ACTIONS, ENTITIES} from '../constants';
+import checkSelf from "../middlewares/permissions/user/checkSelf";
 
 const userRouter = express.Router();
 
+const checkPermissionUser = checkPermission(ENTITIES.USER);
+
 userRouter.get('/:userId',
-               UserController.getUserByPk
+    checkSelf,
+    checkPermissionUser(ACTIONS.READ),
+    UserController.getUserByPk
 );
 
 userRouter.post('',
-                UserController.createUser
+    checkSelf,
+    checkPermissionUser(ACTIONS.READ),
+    UserController.createUser
 );
 
 userRouter.patch('/:userId',
-                 UserController.updateUser
+    checkSelf,
+    checkPermissionUser(ACTIONS.READ),
+    UserController.updateUser
 );
 
-userRouter.delete(
-  '/:userId',
-  UserController.deleteUser
+userRouter.delete('/:userId',
+    checkSelf,
+    checkPermissionUser(ACTIONS.READ),
+    UserController.deleteUser
 );
 
-module.exports = userRouter;
+export default userRouter;

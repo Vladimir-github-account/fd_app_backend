@@ -3,8 +3,8 @@ import checkUserAuthorization from '../middlewares/authorizations/checkUserAutho
 import comparePassword from '../middlewares/login/ComparePassword';
 import findUserByEmail from '../middlewares/login/FindUserByEmail';
 import getUserInfo from '../middlewares/getUserInfo';
-const userRouter = require('./user.router.js');
-const taskRouter = require('./task.router.js');
+import userRouter from './user.router.js';
+import taskRouter from './task.router.js';
 
 const router = express.Router();
 router.use('/login', findUserByEmail, comparePassword);

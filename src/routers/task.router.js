@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 import TaskController      from '../controllers/task.controller.js';
 import checkOwner          from "../middlewares/permissions/task/checkOwner.js";
 import checkPermission     from "../middlewares/permissions/checkPermission.js";
@@ -32,4 +32,4 @@ taskRouter.delete('/:taskId',
     TaskController.deleteTask
 );
 
-module.exports = taskRouter;
+export default taskRouter;
