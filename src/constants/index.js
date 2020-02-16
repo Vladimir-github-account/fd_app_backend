@@ -77,12 +77,12 @@ export const PERMISSIONS_TREE = Object.freeze({
         UPDATE: {
             TASK: {
                 OWNER: {
-                    VALUE: true,
-                    IS_DONE: true,
-                    DEADLINE: true,
-                    USER_ID: false,
-                    CREATED_AT: false,
-                    UPDATED_AT: false,
+                    value: true,
+                    isDone: true,
+                    deadline: true,
+                    userId: false,
+                    createdAt: false,
+                    updatedAt: false,
                 },
                 NOT_OWNER: false,
             },
@@ -107,7 +107,8 @@ export const PERMISSIONS_TREE = Object.freeze({
             TASK: true,
             USER: {
                 USER: true,
-                ADMIN: false
+                ADMIN: false,
+                MODERATOR: false
             },
         },
         READ: true,
@@ -120,13 +121,14 @@ export const PERMISSIONS_TREE = Object.freeze({
                 SELF: true,
                 OTHER: {
                     USER: {
-                        FIRST_NAME: false,
-                        LAST_NAME: false,
-                        LOGIN: true,
-                        PASSWORD: false,
-                        EMAIL: false,
+                        firstName: false,
+                        lastName: false,
+                        login: true,
+                        password: false,
+                        email: false,
                     },
                     ADMIN: false,
+                    MODERATOR: false
                 },
             }
         },
@@ -140,6 +142,7 @@ export const PERMISSIONS_TREE = Object.freeze({
                 OTHER: {
                     USER: true,
                     ADMIN: false,
+                    MODERATOR: false
                 },
             }
         }
