@@ -87,11 +87,8 @@ export const PERMISSIONS_TREE = Object.freeze({
                 NOT_OWNER: false,
             },
             USER: {
-                USER: {
-                    SELF: true,
-                    OTHER: false,
-                },
-                ADMIN: false,
+                SELF: true,
+                OTHER: false
             },
         },
         DELETE: {
