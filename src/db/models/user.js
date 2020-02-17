@@ -25,23 +25,24 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING(64),
-            unique: true
+            unique: true,
+            isEmail: true,
         },
         profilePicture: {
             type: DataTypes.STRING(64),
             unique: true
         },
     }, {
-        timestamps:true
+        timestamps: true
     });
     User.associate = function (models) {
         User.hasMany(models.Task, {
             foreignKey: 'userId'
         });
-        User.belongsToMany( models.Role, {
+        User.belongsToMany(models.Role,{
             foreignKey: 'roleId',
             through: 'UserRoles',
-        } );
+        })
     };
     return User;
 };

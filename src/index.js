@@ -10,14 +10,13 @@ app.use(express.json());
 app.use( router );
 
 app.use( errorHandlers.applicationErrorHandler );
+app.use( errorHandlers.validationErrorHandler );
+app.use( errorHandlers.sequelizeErrorHandler );
 app.use( (err, req, res, next) => {
   console.log( res );
-  return res.status( 500 ).send( 'Internal server error' );
+  return res.status( 500 ).send( 'Server error' );
 } );
 
 app.listen(PORT, () => {
   console.log(`My app listening on port ${PORT}`);
 });
-//fix creating task with a userId which does not exist
-//how to handle not unique values in user update, new query with all values?
-//fix delete user by id which not exist
