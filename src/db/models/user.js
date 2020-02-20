@@ -29,8 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             isEmail: true,
         },
         profilePicture: {
-            type: DataTypes.STRING(64),
-            unique: true
+            type: DataTypes.STRING
         },
     }, {
         timestamps: true
