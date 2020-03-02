@@ -1,5 +1,5 @@
-const {Task} = require('../db/models');
-const {Op} = require('sequelize');
+const { Task } = require( '../db/models' );
+const { Op } = require( 'sequelize' );
 
 class TasksController {
   async getTasks(req, res, next) {
@@ -14,18 +14,24 @@ class TasksController {
           offset,
         }
       } = req;
-
-      const tasks = await Task.findAll({
-                                         limit,
-                                         offset,
-                                         where: {
-                                           userId,
-                                           isDone,
-                                         }
-                                       });
-      res.send(tasks);
+      const options = {
+        where: {
+          userId,
+        }
+      };
+      if ( isDone ) {
+        options.where.isDone = isDone;
+      }
+      if ( limit ) {
+        options.limit = limit;
+      }
+      if ( offset ) {
+        options.offset = offset;
+      }
+      const tasks = await Task.findAll( options );
+      res.send( tasks );
     } catch (e) {
-      next(e);
+      next( e );
     }
   }
 
@@ -40,22 +46,26 @@ class TasksController {
           ids
         }
       } = req;
-      const deletedRowsCount = await Task.destroy({
-                                                    where: {
-                                                      userId,
-                                                      isDone,
-                                                      id: ids.split(',')
-                                                    }
-                                                  });
-      if (deletedRowsCount) {
-        return res.send({
-                          deletedRowsCount,
-                        });
+      const options = {
+        where: {
+          userId,
+        }
+      };
+      if ( isDone ) {
+        options.where.isDone = isDone;
       }
-      next(new AppError.NotFoundError('Tasks'));
-
+      if ( ids ) {
+        options.where.id = ids.split( ',' );
+      }
+      const deletedRowsCount = await Task.destroy( options );
+      if ( deletedRowsCount ) {
+        return res.send( {
+          deletedRowsCount,
+        } );
+      }
+      next( new AppError.NotFoundError( 'Tasks' ) );
     } catch (e) {
-      next(e);
+      next( e );
     }
   }
 }

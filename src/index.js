@@ -1,14 +1,13 @@
-const express = require('express');
-const router = require('./routers');
-import cors from 'cors';
+const express = require( 'express' );
+const router = require( './routers' );
+import cors          from 'cors';
 import errorHandlers from './middlewares/errors_handlers';
+
 const PORT = 5000;
 const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.use( router );
-
+app.use( cors() );
+app.use( express.json() );
+app.use( '/api', router );
 app.use( errorHandlers.applicationErrorHandler );
 app.use( errorHandlers.validationErrorHandler );
 app.use( errorHandlers.sequelizeErrorHandler );
@@ -17,6 +16,6 @@ app.use( (err, req, res, next) => {
   return res.status( 500 ).send( 'Server error' );
 } );
 
-app.listen(PORT, () => {
-  console.log(`My app listening on port ${PORT}`);
-});
+app.listen( PORT, () => {
+  console.log( `My app listening on port ${PORT}` );
+} );
