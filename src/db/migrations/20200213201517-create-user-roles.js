@@ -22,11 +22,11 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             }
-        }).then( value => {
+        })/*.then( value => {
             return queryInterface.addConstraint( 'UserRoles', ['userId', 'roleId'], {
                 type: 'primary key',
             } );
-        } );
+        } )*/;
     },
     down: (queryInterface, Sequelize) => {
         return queryInterface.dropTable('UserRoles');

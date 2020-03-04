@@ -16,7 +16,7 @@ import validationSchemas      from '../utils/data_validations';
 const checkUserValidation = checkValidation( validationSchemas.userSchema );
 
 const router = express.Router();
-router.use( '/login', findUserByEmail, comparePassword );
+router.use( '/sign_in', findUserByEmail, comparePassword );
 router.use( '/sign_up',
     checkUserValidation( ACTIONS.CREATE ),
     UserController.createUser );
